@@ -1,5 +1,5 @@
 <!-- page content -->
-<div class="right_col" role="main">
+<div class="right_col" role="main"> 
     <!-- top tiles -->
     <div class="row" style="display: inline-block;" >
     <div class="tile_count">
