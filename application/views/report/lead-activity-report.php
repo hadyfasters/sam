@@ -4,7 +4,7 @@
     <div class="row" style="display: inline-block;" >
     <div class="tile_count">
         <div class="col-md-12 col-sm-12 tile_stats_count">
-            <div class="count">Activity Report</div>
+            <div class="count">Lead Activity Report</div>
         </div>
     </div>
 </div>
@@ -13,7 +13,7 @@
     <div class="col-md-12 col-sm-12">
         <div class="x_panel" style="border-radius: 8px">
             <div class="x_content mt-4">
-                <div class="col-md-7 col-sm-7">
+                <div class="col-md-12 col-sm-12">
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
                         <div class="item form-group">
                             <label class="col-form-label col-md-3 col-sm-3 label-align" for="datasummary">Data Summary</label>
@@ -23,17 +23,6 @@
                                     <option value="press">Data Success</option>
                                     <option value="net">Data Remain</option>
                                 </select>
-                            </div>
-                        </div>
-                        <div class="item form-group">
-                            <label class="col-form-label col-md-3 col-sm-3 label-align" for="proses">Proses</label>
-                            <div class="col-md-9 col-sm-9 ">
-                            <select style="border-radius: 6px; color: #495057;" id="proses" name="proses" class="form-control" required>
-                                <option value="">Pilih Proses..</option>
-                                <option value="press">Lead</option>
-                                <option value="net">Call</option>
-                                <option value="net">Meet</option>
-                            </select>
                             </div>
                         </div>
                         <div class="item form-group">
@@ -55,43 +44,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
-                <div class="col-md-4 col-sm-4">
-                    <div class="row">
-                        <div class="col-md-3 col-sm-3">
-                            <div class="row" style="margin-bottom: -13px">
-                                <div class="col-sm-12 col-md-12 d-flex justify-content-center"><img src="<?php echo base_url('assets/img/xls.png')?>" style="max-width: 30px;" /></div>
-                                <div class="w-100"></div>
-                                <div class="col-sm-12 col-md-12 d-flex justify-content-center pt-3"><h4 class="font-weight-bold">Lead</h4></div>
-                                <div class="col-sm-12 col-md-12 d-flex justify-content-center" style="margin-top:-5px"><p>Download</p></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3">
-                            <div class="row" style="margin-bottom: -13px">
-                                <div class="col-sm-12 col-md-12 d-flex justify-content-center"><img src="<?php echo base_url('assets/img/xls.png')?>" style="max-width: 30px;" /></div>
-                                <div class="w-100"></div>
-                                <div class="col-sm-12 col-md-12 d-flex justify-content-center pt-3"><h4 class="font-weight-bold">Call</h4></div>
-                                <div class="col-sm-12 col-md-12 d-flex justify-content-center" style="margin-top:-5px"><p>Download</p></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3">
-                            <div class="row" style="margin-bottom: -13px">
-                                <div class="col-sm-12 col-md-12 d-flex justify-content-center"><img src="<?php echo base_url('assets/img/xls.png')?>" style="max-width: 30px;" /></div>
-                                <div class="w-100"></div>
-                                <div class="col-sm-12 col-md-12 d-flex justify-content-center pt-3"><h4 class="font-weight-bold">Meet</h4></div>
-                                <div class="col-sm-12 col-md-12 d-flex justify-content-center" style="margin-top:-5px"><p>Download</p></div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-3">
-                            <div class="row" style="margin-bottom: -13px">
-                                <div class="col-sm-12 col-md-12 d-flex justify-content-center"><img src="<?php echo base_url('assets/img/xls.png')?>" style="max-width: 30px;" /></div>
-                                <div class="w-100"></div>
-                                <div class="col-sm-12 col-md-12 d-flex justify-content-center pt-3"><h4 class="font-weight-bold">Close</h4></div>
-                                <div class="col-sm-12 col-md-12 d-flex justify-content-center" style="margin-top:-5px"><p>Download</p></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </div>                
             </div>
         </div>
     </div>
@@ -107,20 +60,21 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Nama Prospect</th>
+                                        <th>User (NPP)</th>
+                                        <th>Cabang (by kode cabang)</th>
+                                        <th>Wilayah</th>
                                         <th>Jenis Nasabah</th>
-                                        <th>Alamat</th>
-                                        <th>Contact Person</th>
-                                        <th>No. Contact</th>
+                                        <th>Jumlah Lead</th>
+                                        <th>Produk</th>
                                         <th>Potensi Dana Masuk</th>
-                                        <th>Produk Sumber Dana</th>
-                                        <th>Kategori Nasabah</th>
-                                        <th>Additional Info</th>
-                                        <th>Date & Time Inputted</th>
-                                        <th>Action</th>	  
-                                        <th>FU Call</th>	  
-                                        <th>FU Meet</th>	  
-                                        <th>FU Close</th>	   
+                                        <th>Jumlah Call</th>
+                                        <th>% Jumlah Call</th>
+                                        <th>Jumlah Meet</th>
+                                        <th>% Jumlah Meet</th>	  
+                                        <th>Jumlah Close</th>	  
+                                        <th>% Jumlah Close</th>	  
+                                        <th>Realisasi Dana Masuk</th>	
+                                        <th>% Realisasi Dana Masuk</th>      
                                     </tr>
                                 </thead>
                                 <tbody>

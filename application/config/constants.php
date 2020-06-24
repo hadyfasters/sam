@@ -153,4 +153,8 @@ define('LEAD_UPDATE','lead/update');
 define('LEAD_APPROVE','lead/approval');
 
 // Endpoint REPORT
+define('LEAD_REPORT','report/lead');
+define('CALL_REPORT','report/call');
+define('MEET_REPORT','report/meet');
+define('CLOSE_REPORT','report/close');
 define('ACTIVITY_REPORT','report/activity');
