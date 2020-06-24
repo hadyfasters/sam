@@ -1,0 +1,60 @@
+.bg-front {
+    opacity: 0.15;
+    width: 100%;
+    align-items: center;
+    /* background-position: -500px -120px; */
+}
+
+.logo {
+    width: 24%;
+}
+
+.font-front {
+    color: rgb(78, 78, 78) !important;    
+}
+
+.title {
+    font-style: bold; 
+    font-weight: bolder; 
+    font-size: 60px; 
+    line-height: 23px; 
+    letter-spacing: 3px;
+}
+
+.subtitle {
+    letter-spacing: 2px;
+}
+
+.login-text {
+    color: rgb(78, 78, 78) !important;    
+    font-style: normal; 
+    font-weight: normal; 
+    font-size: 20px; 
+    letter-spacing: 2px;
+}
+
+.card-title-left {
+    font-style: bold; 
+    font-weight: bolder; 
+    font-size: 30px; 
+    line-height: 15px; 
+    letter-spacing: 2px;
+}
+
+.card-subtitle-left {
+    font-size: 19px; 
+    letter-spacing: 0.7px;
+}
+
+.card-title-right {
+    color:  rgb(78, 78, 78) !important;
+    margin-top: -10px;
+    font-weight: bold; 
+    font-size: 30px; 
+    line-height: 15px; 
+} 
+
+
+
+
+

@@ -1,0 +1,78 @@
+<?php
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Call extends SAM_Controller {
+
+    public function __construct()
+	{
+		parent::__construct();
+		// $this->load->helper('form');
+		$this->load->library('session');
+
+        if(!$this->isLogin){
+            redirect('login/out');
+        }        
+	}
+
+	public function index()
+	{
+        $this->data['content'] = 'call/list-call';
+
+        $this->data['javascriptLoad'] = array(
+            0 => 'assets/vendors/datatables.net/js/jquery.dataTables.min.js',
+            1 => 'assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js',
+            2 => 'assets/vendors/datatables.net-buttons/js/dataTables.buttons.min.js',
+            3 => 'assets/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js',
+            4 => 'assets/vendors/datatables.net-buttons/js/buttons.flash.min.js',
+            5 => 'assets/vendors/datatables.net-buttons/js/buttons.html5.min.js',
+            6 => 'assets/vendors/datatables.net-buttons/js/buttons.print.min.js',
+            7 => 'assets/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js',
+            8 => 'assets/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js',
+            9 => 'assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js',
+            10 => 'assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js',
+            11 => 'assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js',
+            12 => 'assets/build/js/call.js'
+        );
+
+        $this->load->view('template', $this->data);
+    }
+
+    public function add()
+    {
+        $this->data['content'] = 'call/input-call';
+
+        $this->data['javascriptLoad'] = array(
+            1 => 'assets/build/js/call.js',
+            2 => 'assets/build/js/jquery.validate.min.js',
+            3 => 'assets/vendors/moment/min/moment.min.js',
+            4 => 'assets/vendors/bootstrap-datepicker/js/bootstrap-datepicker.js',
+            5 => 'assets/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
+        );
+        $this->load->view('template', $this->data);
+    }
+
+    public function detail()
+    {
+        $this->data['content'] = 'call/view-call';
+        // $data['javascriptLoad'] = array(
+        //     1 => 'assets/build/js/lead.js',
+        //     2 => 'assets/build/js/jquery.validate.min.js'
+        // );
+
+        $this->load->view('template', $this->data);
+    }
+
+    public function edit()
+    {
+        $this->data['content'] = 'call/edit-call';
+        $this->data['javascriptLoad'] = array(
+            1 => 'assets/build/js/call.js',
+            2 => 'assets/build/js/jquery.validate.min.js',
+            3 => 'assets/vendors/moment/min/moment.min.js',
+            4 => 'assets/vendors/bootstrap-datepicker/js/bootstrap-datepicker.js',
+            5 => 'assets/vendors/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js'
+        );
+
+        $this->load->view('template', $this->data);
+    }
+}
