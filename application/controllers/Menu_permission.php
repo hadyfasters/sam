@@ -20,6 +20,7 @@ class Menu_permission extends SAM_Controller {
 
         $dt_user = [
             'is_sa' => $this->data['userdata']['is_sa'],
+            'roles' => $this->data['userdata']['role_id'],
             'status' => 1
         ];
         $roles = $this->client_url->postCURL(ROLES_LIST,$this->secure($dt_user),$userToken); 
@@ -28,19 +29,22 @@ class Menu_permission extends SAM_Controller {
             // Decrypt the response
             $roles = json_decode($this->recure($roles));
         }
-
         if(isset($roles->status) && $roles->status)
         {
             $this->data['roles_list'] = $roles->data;
         }
 
-        $menu = $this->client_url->postCURL(MENU_LIST, '',$userToken);
+
+        $dt_menu = [
+            'is_sa' => $this->data['userdata']['is_sa'],
+            'roles' => $this->data['userdata']['role_id']
+        ];
+        $menu = $this->client_url->postCURL(MENU_LIST, $this->secure($dt_menu),$userToken);
         $menu_resp = json_decode($menu);
         if($menu_resp!=null && !isset($menu_resp->status)){
             // Decrypt the response
             $menu_resp = json_decode($this->recure($menu_resp));
         }
-
         if(isset($menu_resp->status) && $menu_resp->status)
         {
             $this->data['menu_list'] = $menu_resp->data;

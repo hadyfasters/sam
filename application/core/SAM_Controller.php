@@ -26,6 +26,7 @@ class SAM_Controller extends CI_Controller{
             'id_user' => $data['id_user'],
             'npp' => $data['npp'],
             'roles' => $data['role_id'],
+            'is_sa' => $data['is_sa'],
         ];
         $menu = $this->client_url->postCURL(MENU_USER, $this->secure($menuFilter), $data['token']);
         $menu_resp = json_decode($menu);
