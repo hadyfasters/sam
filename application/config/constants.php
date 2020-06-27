@@ -97,6 +97,7 @@ define('AUTH_CAPTCHA','auth/captcha');
 
 // Endpoint MENU
 define('MENU_LIST','menu/lists');
+define('MENU_USER','menu/permit_lists');
 
 // Endpoint REGION
 define('REGION_GET','outlet/get_wilayah');
@@ -117,6 +118,13 @@ define('USERPOSITION_CREATE','userposition/create');
 define('USERPOSITION_UPDATE','userposition/update');
 define('USERPOSITION_DELETE','userposition/remove');
 
+// Endpoint ROLES
+define('ROLES_GET','roles/get');
+define('ROLES_LIST','roles/lists');
+define('ROLES_CREATE','roles/create');
+define('ROLES_UPDATE','roles/update');
+define('ROLES_DELETE','roles/remove');
+
 // Endpoint PRODUCT
 define('PRODUCT_GET','product/get');
 define('PRODUCT_LIST','product/lists');
@@ -128,6 +136,7 @@ define('PERMISSION_GET','menu_permission/get');
 define('PERMISSION_LIST','menu_permission/lists');
 define('PERMISSION_CREATE','menu_permission/create');
 define('PERMISSION_UPDATE','menu_permission/update');
+define('PERMISSION_USER','menu_permission/permits');
 
 // Endpoint USER
 define('USER_GET','user/get');
@@ -151,10 +160,7 @@ define('LEAD_GET','lead/detail');
 define('LEAD_CREATE','lead/create');
 define('LEAD_UPDATE','lead/update');
 define('LEAD_APPROVE','lead/approval');
+define('LEAD_REMOVE','lead/remove');
 
 // Endpoint REPORT
-define('LEAD_REPORT','report/lead');
-define('CALL_REPORT','report/call');
-define('MEET_REPORT','report/meet');
-define('CLOSE_REPORT','report/close');
 define('ACTIVITY_REPORT','report/activity');

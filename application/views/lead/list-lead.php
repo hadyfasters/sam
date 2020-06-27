@@ -59,10 +59,11 @@
                                 </select>
                             </div>                                        
                         </div>
-                        <div class="col-md-12 col-sm-12 text-right">
+                        <div class="col-md-12 col-sm-12 text-center">
                             <div class="form-group">
-                                <input style="border-radius: 6px" type="submit" class="btn btn-primary btn-sm" value="Cari">
-                                <button style="border-radius: 6px" type="reset" class="btn btn-warning btn-sm" onclick="resetForm()">Reset</button>
+                                <a href="<?php echo $_SERVER['PHP_SELF']; ?>" style="border-radius: 6px" class="btn btn-info btn-sm">Show All</a>
+                                <input style="border-radius: 6px" type="submit" class="btn btn-primary btn-sm" value="Search">
+                                <button style="border-radius: 6px" type="button" class="btn btn-warning btn-sm" onclick="resetForm()">Reset</button>
                             </div>
                         </div>
                     </div>
@@ -74,8 +75,6 @@
         <div class="x_panel" style="border-radius: 8px">
             <div class="x_title">
                 <button style="border-radius: 6px" type="button" class="btn btn-primary btn-sm mb-1 mt-2"><i class="fa fa-plus-circle "></i><a style="color: white;" href="<?php echo site_url('lead/add') ?>">  New Data</a></button>   
-                <!-- <button style="border-radius: 6px" type="button" class="btn btn-primary mb-1 mt-2"><i class="fa fa-plus-circle "></i><a style="color: white;" href="<?php echo site_url('lead/detail') ?>">  View Data</a></button>
-                <button style="border-radius: 6px" type="button" class="btn btn-primary mb-1 mt-2"><i class="fa fa-plus-circle "></i><a style="color: white;" href="<?php echo site_url('lead/edit') ?>">  Edit Data</a></button> -->
                 <div class="clearfix"></div>
             </div>
             <div class="x_content" style="width: 100%;">
@@ -84,19 +83,19 @@
                         <?php if (isset($error_message)): ?>
                             <p class="text-center" style="color: red;"><?php echo $error_message; ?></p>
                         <?php endif; ?>
-                        <!-- <div class="card-box"> -->
-                            <table id="dataLead" class="table table-striped table-bordered" width="100%">
+                        <div class="card-box table-responsive">
+                            <table id="dataLead" class="table table-striped table-bordered nowrap" width="100%">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
                                         <th>Nama</th>
                                         <th>Nasabah</th>
+                                        <th>Produk</th>
                                         <th>Potensi Dana</th>
                                         <th>Input Date</th>
                                         <th>FU Call</th>   
                                         <th>FU Meet</th>   
                                         <th>FU Close</th>   
-                                        <!-- <th>Time</th> -->
                                         <th>Action</th>       
                                     </tr>
                                 </thead>
@@ -107,30 +106,18 @@
                                         foreach ($lead_list as $lead) {
                                             echo '<tr>';
                                             echo '<td width="3%">'.$no.'</td>';
-                                            echo '<td width="15%"><a href="'.site_url('lead/detail/'.$lead->lead_id).'" title="View Detail" target="_blank">'.$lead->nama_prospek.'</a></td>';
+                                            echo '<td><a href="'.site_url('lead/detail/'.$lead->lead_id).'" title="View Detail" target="_blank">'.$lead->nama_prospek.'</a></td>';
                                             echo '<td>'.($lead->jenis_nasabah==1?'Perorangan':'Institusi').'</td>';
+                                            echo '<td>'.$lead->product_name.'</td>';
                                             echo '<td>'.number_format($lead->potensi_dana).'</td>';
-                                            echo '<td width="11%">'.date('d-m-Y',strtotime($lead->created_date)).'</td>';
-                                            echo '<td width="11%">'.(!is_null($lead->call_date)?date('d-m-Y',strtotime($lead->call_date)):'-').'</td>';
-                                            echo '<td width="11%">'.(!is_null($lead->meet_date)?date('d-m-Y',strtotime($lead->meet_date)):'-').'</td>';
-                                            echo '<td width="11%">'.(!is_null($lead->close_date)?date('d-m-Y',strtotime($lead->close_date)):'-').'</td>';
-                                            // echo '<td>'.date('H:i:s',strtotime($lead->created_date)).'</td>';
-                                            echo '<td class="text-center" width="12%">';
-                                            if(is_null($lead->approval)) :
-                                            // echo '<a class="btn btn-link btn-sm" href="'.site_url('lead/view/'.$lead->lead_id).'" title="View Detail"><i class="fa fa-eye"></i></a>';
-                                            // echo '<a class="btn btn-link btn-sm" href="'.site_url('lead/edit/'.$lead->lead_id).'" title="Edit"><i class="fa fa-pencil"></i></a>';
-                                            // echo '<a class="btn btn-link btn-sm" href="'.site_url('lead/approve/'.$lead->lead_id).'" title="Approve" onclick="return confirm(\'Apakah Anda Yakin?\')"><i class="fa fa-check"></i></a>';
-                                            // echo '<div class="dropdown">';
-                                            echo '<a class="btn btn-secondary dropdown-toggle btn-sm" href="#" role="button" id="dropdownLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-gear"></i></a>';
-                                            echo '<div class="dropdown-menu dropdown-menu-lg-right" aria-labelledby="dropdownLink">';
-                                            // echo '<a class="dropdown-item" href="'.site_url('lead/detail/'.$lead->lead_id).'" title="View Detail"><i class="fa fa-eye"></i> View</a>';
-                                            echo '<a class="dropdown-item" href="'.site_url('lead/edit/'.$lead->lead_id).'" title="Edit"><i class="fa fa-pencil"></i> Edit</a>';
-                                            echo '<a class="dropdown-item" href="'.site_url('lead/approve/'.$lead->lead_id).'" onclick="return confirm(\'Apakah Anda Yakin?\')" title="Approve"><i class="fa fa-lock"></i> Lock</a>';
-                                            echo '<a class="dropdown-item" href="'.site_url('lead/approve/'.$lead->lead_id).'" onclick="return confirm(\'Apakah Anda Yakin?\')" title="Approve"><i class="fa fa-check"></i> Approve</a>';
-                                            echo '</div>';
-                                            echo '</div>';
-                                            elseif($lead->approval==1) :
-                                            echo '<i class="fa fa-check"></i> APPROVED';
+                                            echo '<td>'.date('d-m-Y',strtotime($lead->created_date)).'</td>';
+                                            echo '<td>'.(!is_null($lead->call_date)?date('d-m-Y',strtotime($lead->call_date)):'-').'</td>';
+                                            echo '<td>'.(!is_null($lead->meet_date)?date('d-m-Y',strtotime($lead->meet_date)):'-').'</td>';
+                                            echo '<td>'.(!is_null($lead->close_date)?date('d-m-Y',strtotime($lead->close_date)):'-').'</td>';
+                                            echo '<td class="text-center">';
+                                            if(is_null($lead->status) || $lead->status==0) :
+                                            echo '<a class="btn btn-link btn-sm" href="'.site_url('lead/edit/'.$lead->lead_id).'" title="Edit"><i class="fa fa-pencil"></i></a>';
+                                            echo '<a class="btn btn-link btn-sm" href="'.site_url('lead/remove/'.$lead->lead_id).'" title="Delete" onclick="return confirm(\'Apakah Anda Yakin?\')"><i class="fa fa-trash"></i></a>';
                                             else :
                                             echo '<i class="fa fa-lock"></i> LOCKED';
                                             endif;
@@ -142,7 +129,7 @@
                                     ?>
                                 </tbody>
                             </table>
-                        <!-- </div> -->
+                        </div>
                     </div>
                 </div>
             </div>

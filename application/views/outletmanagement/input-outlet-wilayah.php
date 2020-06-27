@@ -43,13 +43,13 @@
                             <div class="errorTxt3" style="color:red"></div>
                         </div>
                     </div>
-                    <!-- <div class="item form-group">
+                    <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="enddate">End Date</label>
                         <div class="col-md-6 col-sm-6 ">
                             <input type="text" id="enddate" name="enddate" class="form-control" style="border-radius: 6px" placeholder="dd/mm/yyyy" data-error=".errorTxt4">
                             <div class="errorTxt4" style="color:red"></div>
                         </div>
-                    </div> -->
+                    </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="productdesc">Status Produk</label>
                         <div class="col-md-6 col-sm-6 ">

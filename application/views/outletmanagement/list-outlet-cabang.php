@@ -23,7 +23,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
-                            <table id="dataOutletCabang" class="table table-striped table-bordered text-center" width="100%">
+                            <table id="dataOutletCabang" class="table table-striped table-bordered text-center nowrap" width="100%">
                                 <thead>
                                     <tr>
                                         <th>No.</th>
@@ -31,7 +31,7 @@
                                         <th>Nama Cabang</th>
                                         <th>Wilayah</th>
                                         <th>Start Date</th>
-                                        <!-- <th>End Date</th> -->
+                                        <th>End Date</th>
                                         <th>Action</th>  
                                     </tr>
                                 </thead>
@@ -46,7 +46,7 @@
                                             echo '<td>'.$brc->name.'</td>';
                                             echo '<td>'.$brc->region_code.'</td>';
                                             echo '<td>'.$brc->start_date.'</td>';
-                                            // echo '<td>'.$brc->end_date.'</td>';
+                                            echo '<td>'.$brc->end_date.'</td>';
                                             echo '<td>';
                                             echo '<div class="row">';
                                             echo '<div class="offset-sm-3 col-sm-3 col-md-3 ">';

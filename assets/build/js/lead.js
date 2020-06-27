@@ -35,7 +35,7 @@ $('#provinsi').on('change',function(){
                 .end()
                 .append(html);
         }
-    })
+    });
 });
 
 $('#kota').on('change',function(){
@@ -57,7 +57,7 @@ $('#kota').on('change',function(){
                 .end()
                 .append(html);
         }
-    })
+    });
 });
 
 $('#kecamatan').on('change',function(){
@@ -79,11 +79,13 @@ $('#kecamatan').on('change',function(){
                 .end()
                 .append(html);
         }
-    })
+    });
 });
 
 function getDataLead() {
-	$('#dataLead').DataTable({searching: false});  
+	$('#dataLead').DataTable({
+        "scrollX":true
+    });  
 }
 
 function getDataApproveLead() {
@@ -339,9 +341,8 @@ function formEditLeadValidation(){
 
 function resetForm()
 {
-    alert("Masuk nih 1");
-    $('select#produksumberdana').prop('selectedIndex', -1);
-    $('input#namaprospek').val(" ");
-    $('select#kategorinasabah').prop('selectedIndex', -1);
-    $('select#jenisnasabah').prop('selectedIndex', -1);
+    $('select#produksumberdana').val('');
+    $('input#namaprospek').val('');
+    $('select#kategorinasabah').val('');
+    $('select#jenisnasabah').val('');
 }

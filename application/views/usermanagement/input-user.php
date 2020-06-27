@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <div class="item form-group">
-                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="cabang">Cabang</label>
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="cabang">Cabang/Divisi</label>
                         <div class="col-md-6 col-sm-6 ">
                             <select style="border-radius: 6px; color: #495057;" id="cabang" name="cabang" class="form-control" data-error=".errorTxt4">
                                 <option value="">Pilih Cabang..</option>
@@ -72,7 +72,23 @@
                                 <?php 
                                 if(isset($userposition_list)) : 
                                     foreach ($userposition_list as $userpos) {
-                                        echo '<option value="'.$userpos->up_id.'">'.$userpos->up_name.'</option>';
+                                        echo '<option value="'.$userpos->position_id.'">'.$userpos->position_name.'</option>';
+                                    }
+                                endif 
+                                ?>
+                            </select>
+                            <div class="errorTxt5" style="color:red"></div>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="roles">Hak Akses</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <select style="border-radius: 6px; color: #495057;" id="roles" name="roles" class="form-control" data-error=".errorTxt5">
+                                <option value="">Pilih Hak Akses</option>
+                                <?php 
+                                if(isset($roles_list)) : 
+                                    foreach ($roles_list as $roles) {
+                                        echo '<option value="'.$roles->role_id.'">'.$roles->role_name.'</option>';
                                     }
                                 endif 
                                 ?>

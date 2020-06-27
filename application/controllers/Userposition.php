@@ -17,7 +17,7 @@ class Userposition extends SAM_Controller {
 	public function index()
 	{
         $dt_user = [
-            'level' => $this->data['userdata']['level']
+            'is_sa' => $this->data['userdata']['is_sa']
         ];
         $userposition = $this->client_url->postCURL(USERPOSITION_LIST,$this->secure($dt_user),$this->data['userdata']['token']); 
         $userposition = json_decode($userposition);
@@ -56,6 +56,12 @@ class Userposition extends SAM_Controller {
    
     public function add()
     {
+        if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_input']) {
+            echo 'SA : '.$this->data['userdata']['is_sa'].' / INPUT : '.$this->data['userdata']['acl_input'];exit;
+            $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
+            redirect('userposition');
+        }
+
         $this->data['error_message'] = $this->session->flashdata('error_message');
         $this->data['content'] = 'userposition/input-user-position';
 
@@ -69,6 +75,10 @@ class Userposition extends SAM_Controller {
 
     public function edit($id)
     {
+        if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_edit']) {
+            $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
+            redirect('userposition');
+        }
         $this->data['error_message'] = $this->session->flashdata('error_message');
         $this->data['content'] = 'userposition/edit-user-position';
 

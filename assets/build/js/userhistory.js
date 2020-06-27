@@ -5,5 +5,7 @@ $(document).ready(function() {
 });
 
 function getDataUser() {
-	$('#dataUser').DataTable();  
+	$('#dataUser').DataTable({
+        "scrollX":true
+    });  
 }

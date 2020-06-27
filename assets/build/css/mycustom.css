@@ -54,7 +54,10 @@
     line-height: 15px; 
 } 
 
-
+div.dataTables_wrapper{
+    width: 100%;
+    margin: 0;
+}
 
 
 

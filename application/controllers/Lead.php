@@ -72,8 +72,72 @@ class Lead extends SAM_Controller {
         $this->load->view('template', $this->data);
     }
 
+	public function search()
+	{
+        $path = LEAD_LIST;
+        $search = '';
+        if(!empty($this->input->post())){
+            $path = LEAD_SEARCH;
+            $forms = [
+                'produk' => $this->input->post('produksumberdana'),
+                'nama_prospek' => $this->input->post('namaprospek'),
+                'kategori_nasabah' => $this->input->post('kategorinasabah'),
+                'jenis_nasabah' => $this->input->post('jenisnasabah')
+            ];
+            $search = $this->secure($forms);
+            // $this->data['search'] = $forms;
+        }
+
+        $products = $this->client_url->postCURL(PRODUCT_LIST,'',$this->data['userdata']['token']); 
+        $products = json_decode($products);
+        if($products!=null && !isset($products->status)){
+            // Decrypt the response
+            $products = json_decode($this->recure($products));
+        }
+        if(isset($products->status) && $products->status)
+        {
+            $this->data['product_list'] = $products->data;
+        }
+
+        $leads = $this->client_url->postCURL($path,$search,$this->data['userdata']['token']); 
+        $leads = json_decode($leads);
+        if($leads!=null && !isset($leads->status)){
+            // Decrypt the response
+            $leads = json_decode($this->recure($leads));
+        }
+
+        if(isset($leads->status) && $leads->status)
+        {
+            $this->data['lead_list'] = $leads->data;
+        }
+        $this->data['content'] = 'lead/list-lead';
+
+        $this->data['javascriptLoad'] = array(
+            0 => 'assets/vendors/datatables.net/js/jquery.dataTables.min.js',
+            1 => 'assets/vendors/datatables.net-bs/js/dataTables.bootstrap.min.js',
+            2 => 'assets/vendors/datatables.net-buttons/js/dataTables.buttons.min.js',
+            3 => 'assets/vendors/datatables.net-buttons-bs/js/buttons.bootstrap.min.js',
+            4 => 'assets/vendors/datatables.net-buttons/js/buttons.flash.min.js',
+            5 => 'assets/vendors/datatables.net-buttons/js/buttons.html5.min.js',
+            6 => 'assets/vendors/datatables.net-buttons/js/buttons.print.min.js',
+            7 => 'assets/vendors/datatables.net-fixedheader/js/dataTables.fixedHeader.min.js',
+            8 => 'assets/vendors/datatables.net-keytable/js/dataTables.keyTable.min.js',
+            9 => 'assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js',
+            10 => 'assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js',
+            11 => 'assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js',
+            12 => 'assets/build/js/lead.js'
+        );
+
+        $this->load->view('template', $this->data);
+    }
+
     public function add()
     {
+        if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_input']) {
+            $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
+            redirect('lead');
+        }
+
         $provinces = $this->client_url->postCURL(PROVINCE_LIST,'',$this->data['userdata']['token']); 
         $provinces = json_decode($provinces);
         if($provinces!=null && !isset($provinces->status)){
@@ -124,6 +188,10 @@ class Lead extends SAM_Controller {
 
     public function edit($id)
     {
+        if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_edit']) {
+            $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
+            redirect('lead');
+        }
         $this->data['content'] = 'lead/edit-lead';
 
         $this->data['id'] = $id;
@@ -159,7 +227,7 @@ class Lead extends SAM_Controller {
         }
 
         $arr = [
-            'province' => $lead->data->provinsi
+            'province' => $lead->data->provinsi_id
         ];
 
         $regency = $this->client_url->postCURL(REGENCY_LIST,$this->secure($arr),$this->data['userdata']['token']); 
@@ -174,7 +242,7 @@ class Lead extends SAM_Controller {
         }
 
         $arr2 = [
-            'regency' => $lead->data->kota_kabupaten
+            'regency' => $lead->data->kota_kabupaten_id
         ];
 
         $district = $this->client_url->postCURL(DISTRICT_LIST,$this->secure($arr2),$this->data['userdata']['token']); 
@@ -189,7 +257,7 @@ class Lead extends SAM_Controller {
         }
 
         $arr3 = [
-            'district' => $lead->data->kecamatan
+            'district' => $lead->data->kecamatan_id
         ];
 
         $village = $this->client_url->postCURL(VILLAGE_LIST,$this->secure($arr3),$this->data['userdata']['token']); 
@@ -304,6 +372,11 @@ class Lead extends SAM_Controller {
     {
         extract($this->input->post());
 
+        $status = "0";
+        if(isset($submit)){
+            $status = "1";
+        }
+
         $arr = [
             'kategori_nasabah' => $kategorinasabah,
             'nama_prospek' => $namaprospect,
@@ -318,7 +391,8 @@ class Lead extends SAM_Controller {
             'potensi_dana' => $potensidana,
             'produk' => $produksumberdana,
             'additional_info' => $additionalinfo,
-            'user' => $this->data['userdata']['nama']
+            'user' => $this->data['userdata']['id_user'],
+            'status' => $status
         ]; 
 
         $path = LEAD_CREATE;
@@ -366,6 +440,25 @@ class Lead extends SAM_Controller {
         if(isset($saving->status) && !$saving->status)
         {
             $this->session->set_flashdata('error_message', $saving->message);
+        }
+        redirect('lead');
+    }
+
+    function remove($id)
+    {
+        $arr = [
+            'id' => $id
+        ]; 
+
+        $delete = $this->client_url->postCURL(LEAD_REMOVE,$this->secure($arr),$this->data['userdata']['token']); 
+        $delete = json_decode($delete);
+        if($delete!=null && !isset($delete->status)){
+            // Decrypt the response
+            $delete = json_decode($this->recure($delete));
+        }
+        if(isset($delete->status) && !$delete->status)
+        {
+            $this->session->set_flashdata('error_message', $delete->message);
         }
         redirect('lead');
     }

@@ -55,6 +55,10 @@ class Outlet extends SAM_Controller {
 
     public function add_outlet_wilayah()
     {
+        if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_input']) {
+            $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
+            redirect('outlet/wilayah');
+        }
         $this->data['error_message'] = $this->session->flashdata('error_message');
         $this->data['content'] = 'outletmanagement/input-outlet-wilayah';
 
@@ -70,6 +74,10 @@ class Outlet extends SAM_Controller {
 
     public function edit_outlet_wilayah($id)
     {
+        if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_edit']) {
+            $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
+            redirect('outlet/wilayah');
+        }
         $this->data['error_message'] = $this->session->flashdata('error_message');
         $this->data['content'] = 'outletmanagement/edit-outlet-wilayah';
 
@@ -101,10 +109,10 @@ class Outlet extends SAM_Controller {
         $dt_outlet = [
             'code' => $kodewilayah,
             'name' => $namawilayah,
-            'start_date' => date('Y-m-d',strtotime(str_replace("/", "-", $startdate))),
-            // 'end_date' => date('Y-m-d',strtotime(str_replace("/", "-", $enddate))),
+            'start_date' => date_format(date_create(str_replace("/", "-", $startdate)),"Y-m-d"),
+            'end_date' => date_format(date_create(str_replace("/", "-", $enddate)),"Y-m-d"),
             'status' => $status,
-            'user' => $this->data['userdata']['nama']
+            'user' => $this->data['userdata']['id_user']
         ];
         $outlet = $this->client_url->postCURL(REGION_CREATE,$this->secure($dt_outlet),$this->data['userdata']['token']); 
         $outlet = json_decode($outlet);
@@ -130,10 +138,10 @@ class Outlet extends SAM_Controller {
             'id' => $id,
             'code' => $kodewilayah,
             'name' => $namawilayah,
-            'start_date' => date('Y-m-d',strtotime(str_replace("/", "-", $startdate))),
-            // 'end_date' => date('Y-m-d',strtotime(str_replace("/", "-", $enddate))),
+            'start_date' => date_format(date_create(str_replace("/", "-", $startdate)),"Y-m-d"),
+            'end_date' => date_format(date_create(str_replace("/", "-", $enddate)),"Y-m-d"),
             'status' => $status,
-            'user' => $this->data['userdata']['nama']
+            'user' => $this->data['userdata']['id_user']
         ];
         $outlet = $this->client_url->postCURL(REGION_UPDATE,$this->secure($dt_outlet),$this->data['userdata']['token']); 
         $outlet = json_decode($outlet);
@@ -146,7 +154,7 @@ class Outlet extends SAM_Controller {
         if(isset($outlet->status) && !$outlet->status)
         {
             $this->session->set_flashdata('error_message', $outlet->message);
-            redirect('outlet/add_outlet_wilayah');
+            redirect('outlet/edit_outlet_wilayah/'.$id);
         }
         redirect('outlet');
     }
@@ -200,6 +208,10 @@ class Outlet extends SAM_Controller {
 
     public function add_outlet_cabang()
     {
+        if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_input']) {
+            $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
+            redirect('outlet/cabang');
+        }
         $region = $this->client_url->postCURL(REGION_LIST,'',$this->data['userdata']['token']); 
         $region = json_decode($region);
         if($region!=null && !isset($region->status)){
@@ -226,7 +238,10 @@ class Outlet extends SAM_Controller {
 
     public function edit_outlet_cabang($id)
     {
-
+        if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_edit']) {
+            $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
+            redirect('outlet/cabang');
+        }
         $this->data['error_message'] = $this->session->flashdata('error_message');
         // $this->data['auth_token'] = $this->getAuthToken();
         $this->data['content'] = 'outletmanagement/edit-outlet-cabang';
@@ -270,9 +285,9 @@ class Outlet extends SAM_Controller {
             'code' => $kodecabang,
             'name' => $namacabang,
             'region' => $wilayah,
-            'start_date' => date('Y-m-d',strtotime(str_replace("/", "-", $startdate))),
-            'end_date' => date('Y-m-d',strtotime(str_replace("/", "-", $enddate))),
-            'user' => $this->data['userdata']['nama']
+            'start_date' => date_format(date_create(str_replace("/", "-", $startdate)),"Y-m-d"),
+            'end_date' => date_format(date_create(str_replace("/", "-", $enddate)),"Y-m-d"),
+            'user' => $this->data['userdata']['id_user']
         ];
         $outlet = $this->client_url->postCURL(BRANCH_CREATE,$this->secure($dt_outlet),$this->data['userdata']['token']); 
         $outlet = json_decode($outlet);
@@ -299,11 +314,12 @@ class Outlet extends SAM_Controller {
             'code' => $kodecabang,
             'name' => $namacabang,
             'region' => $wilayah,
-            'start_date' => date('Y-m-d',strtotime(str_replace("/", "-", $startdate))),
-            'end_date' => date('Y-m-d',strtotime(str_replace("/", "-", $enddate))),
-            'user' => $this->data['userdata']['nama']
+            'start_date' => date_format(date_create(str_replace("/", "-", $startdate)),"Y-m-d"),
+            'end_date' => date_format(date_create(str_replace("/", "-", $enddate)),"Y-m-d"),
+            'user' => $this->data['userdata']['id_user']
         ];
 
+        // var_dump($dt_outlet);exit;
         $outlet = $this->client_url->postCURL(BRANCH_UPDATE,$this->secure($dt_outlet),$this->data['userdata']['token']); 
         $outlet = json_decode($outlet);
 

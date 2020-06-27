@@ -13,19 +13,19 @@
     <div class="col-md-12 col-sm-12">
         <div class="x_panel" style="border-radius: 8px">
             <div class="x_title">
-                <h2>User Position</h2>
+                <h2>User Role</h2>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
                 <div class="item form-group">
-                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="userposition" style="width: 200%">List User</label>
+                    <label class="col-form-label col-md-3 col-sm-3 label-align" for="roles" style="width: 200%">List User Role</label>
                     <div class="col-md-6 col-sm-6 ">
-                        <select style="border-radius: 6px; color: #495057;" id="userposition" class="form-control" data-error=".errorTxt1" >
+                        <select style="color: #495057;" id="roles" class="form-control" data-error=".errorTxt1" >
                             <option value="">Pilih..</option>
                             <?php 
-                            if(isset($userposition_list) && !empty($userposition_list)) : 
-                                foreach ($userposition_list as $up) {
-                                    echo '<option value="'.$up->up_id.'">'.$up->up_name.'</option>';
+                            if(isset($roles_list) && !empty($roles_list)) : 
+                                foreach ($roles_list as $up) {
+                                    echo '<option value="'.$up->role_id.'">'.$up->role_name.'</option>';
                                 }
                             endif;
                             ?>
@@ -72,7 +72,7 @@
                             <div class="form-check">
                                 <input class="form-check-input parent" type="checkbox" name="menu[]" value="<?php echo $mn->parent->id_menu; ?>" id="<?php echo $mn->parent->id_menu; ?>">
                                 <label class="form-check-label" for="<?php echo $mn->parent->id_menu; ?>">
-                                    <?php echo $mn->parent->nama_menu; ?>
+                                    <strong><?php echo $mn->parent->nama_menu; ?></strong>
                                 </label>
                             </div>
                             <?php if(!empty($mn->sub)) : ?>
@@ -94,8 +94,7 @@
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" name="auth_token" value="<?php echo $auth_token; ?>">
-                    <input type="hidden" name="userposition" value="<?php echo (isset($_GET['userposition'])?$_GET['userposition']:''); ?>">
+                    <input type="hidden" name="roles" value="<?php echo (isset($_GET['roles'])?$_GET['roles']:''); ?>">
                 </form>
             </div>
         </div>

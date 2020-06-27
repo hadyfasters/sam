@@ -19,21 +19,20 @@ class Menu_permission extends SAM_Controller {
         $userToken = $this->data['userdata']['token'];
 
         $dt_user = [
-            'level' => $this->data['userdata']['level'],
+            'is_sa' => $this->data['userdata']['is_sa'],
             'status' => 1
         ];
-        $userposition = $this->client_url->postCURL(USERPOSITION_LIST,$this->secure($dt_user),$userToken); 
-        $userposition = json_decode($userposition);
-        if($userposition!=null && !isset($userposition->status)){
+        $roles = $this->client_url->postCURL(ROLES_LIST,$this->secure($dt_user),$userToken); 
+        $roles = json_decode($roles);
+        if($roles!=null && !isset($roles->status)){
             // Decrypt the response
-            $userposition = json_decode($this->recure($userposition));
+            $roles = json_decode($this->recure($roles));
         }
 
-        if(isset($userposition->status) && $userposition->status)
+        if(isset($roles->status) && $roles->status)
         {
-            $this->data['userposition_list'] = $userposition->data;
+            $this->data['roles_list'] = $roles->data;
         }
-
 
         $menu = $this->client_url->postCURL(MENU_LIST, '',$userToken);
         $menu_resp = json_decode($menu);
@@ -48,7 +47,6 @@ class Menu_permission extends SAM_Controller {
         }
 
         $this->data['error_message'] = $this->session->flashdata('error_message');
-        $this->data['auth_token'] = $this->getAuthToken();
         $this->data['content'] = 'menumanagement/menu-management';
 
         $this->data['javascriptLoad'] = array(
@@ -77,7 +75,7 @@ class Menu_permission extends SAM_Controller {
         $userToken = $this->data['userdata']['token'];
 
         $dt_permission = [
-            'userposition' => $userposition,
+            'roles' => $roles,
             'menu' => $menu,
             'auth_token' => $auth_token
         ];
@@ -95,6 +93,32 @@ class Menu_permission extends SAM_Controller {
         }
 
         redirect('menu_permission');
+    }
+
+    function getUserPermission()
+    {
+        $response = null;
+        extract($this->input->post());
+
+        $arr = [
+            'user_id' => $user_id
+        ];
+
+        $permission = $this->client_url->postCURL(PERMISSION_USER,$this->secure($arr),$this->data['userdata']['token']); 
+        $permission = json_decode($permission);
+        if($permission!=null && !isset($permission->status)){
+            // Decrypt the response
+            $permission = json_decode($this->recure($permission));
+        }
+        if(isset($permission->status) && $permission->status)
+        {
+            $response = $permission->data;
+        }
+
+        $this->output
+            ->set_status_header(200)
+            ->set_content_type('application/json')
+            ->set_output(json_encode($response));
     }
 
     

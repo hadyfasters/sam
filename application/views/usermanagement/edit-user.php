@@ -75,8 +75,25 @@
                                 <?php 
                                 if(isset($userposition_list)) : 
                                     foreach ($userposition_list as $userpos) {
-                                        $selected = ($userpos->up_id==$data->position)?'selected':'';
-                                        echo '<option value="'.$userpos->up_id.'" '.$selected.'>'.$userpos->up_name.'</option>';
+                                        $selected = ($userpos->position_id==$data->position)?'selected':'';
+                                        echo '<option value="'.$userpos->position_id.'" '.$selected.'>'.$userpos->position_name.'</option>';
+                                    }
+                                endif 
+                                ?>
+                            </select>
+                            <div class="errorTxt5" style="color:red"></div>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="roles">Hak Akses</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <select style="border-radius: 6px; color: #495057;" id="roles" name="roles" class="form-control" data-error=".errorTxt5">
+                                <option value="">Pilih Hak Akses</option>
+                                <?php 
+                                if(isset($roles_list)) : 
+                                    foreach ($roles_list as $roles) {
+                                        $selected = ($roles->role_id==$data->roles)?'selected':'';
+                                        echo '<option value="'.$roles->role_id.'" '.$selected.'>'.$roles->role_name.'</option>';
                                     }
                                 endif 
                                 ?>

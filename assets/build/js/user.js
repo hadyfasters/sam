@@ -41,7 +41,9 @@ $('#deleteBtn').click(function(){
 })
 
 function getDataUser() {
-	$('#dataUser').DataTable();  
+	$('#dataUser').DataTable({
+        "scrollX":true
+    });  
 }
 
 function formInputUserValidation(){

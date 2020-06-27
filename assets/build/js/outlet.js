@@ -41,11 +41,15 @@ $('#deleteBtn').click(function(){
 })
 
 function getDataOutletWilayah(){
-    $('#dataOutletWilayah').DataTable();  
+    $('#dataOutletWilayah').DataTable({
+        "scrollX":true
+    });  
 }
 
 function getDataOutletCabang(){
-    $('#dataOutletCabang').DataTable();  
+    $('#dataOutletCabang').DataTable({
+        "scrollX":true
+    });  
 }
 
 function formInputOutletWilayahValidation(){

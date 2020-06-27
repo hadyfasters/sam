@@ -74,10 +74,17 @@ class Login extends SAM_Controller {
                 'nama' => $response->data->nama,
                 'job' => $response->data->job,
                 'job_id' => $response->data->job_id,
+                'role' => $response->data->role,
+                'role_id' => $response->data->role_id,
                 'branch_code' => $response->data->branch_code,
-                'level' => $response->data->level,
                 'token' => $response->data->token,
                 'expired' => $response->data->expired,
+                'is_sa' => $response->data->is_sa,
+                'acl_view' => $response->data->acl_view,
+                'acl_input' => $response->data->acl_input,
+                'acl_edit' => $response->data->acl_edit,
+                'acl_delete' => $response->data->acl_delete,
+                'acl_approve' => $response->data->acl_approve,
                 'is_loggedin' => TRUE
             );
             

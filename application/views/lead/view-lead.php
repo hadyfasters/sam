@@ -84,6 +84,11 @@
                                                 </table>
                                             </td>
                                         </tr>
+                                        <tr>
+                                            <td colspan="2" class="text-right">
+                                                <button class="btn btn-primary btn-sm" onclick="window.close()">Close</button>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                             </div>
