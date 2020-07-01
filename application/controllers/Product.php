@@ -52,6 +52,10 @@ class Product extends SAM_Controller {
    
     public function add()
     {
+        if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_input']) {
+            $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
+            redirect('product');
+        }
         $this->data['error_message'] = $this->session->flashdata('error_message');
         $this->data['content'] = 'productmanagement/input-product';
 
@@ -65,6 +69,10 @@ class Product extends SAM_Controller {
 
     public function edit($id)
     {
+        if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_edit']) {
+            $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
+            redirect('product');
+        }
         $this->data['error_message'] = $this->session->flashdata('error_message');
         $this->data['content'] = 'productmanagement/edit-product';
 

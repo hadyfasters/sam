@@ -25,11 +25,10 @@ class SAM_Controller extends CI_Controller{
         $menuFilter = [
             'id_user' => $data['id_user'],
             'npp' => $data['npp'],
-            'position' => $data['job_id'],
-            'level' => $data['level']
+            'roles' => $data['role_id'],
+            'is_sa' => $data['is_sa'],
         ];
-        $menu = $this->client_url->postCURL(MENU_LIST, $this->secure($menuFilter), $data['token']);
-        
+        $menu = $this->client_url->postCURL(MENU_USER, $this->secure($menuFilter), $data['token']);
         $menu_resp = json_decode($menu);
         if($menu_resp!=null && !isset($menu_resp->status)){
             // Decrypt the response

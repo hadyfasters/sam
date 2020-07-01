@@ -17,7 +17,7 @@ class User extends SAM_Controller {
 	public function index()
 	{
         $dt_user = [
-            'level' => $this->data['userdata']['level']
+            'is_sa' => $this->data['userdata']['is_sa']
         ];
         $users = $this->client_url->postCURL(USER_LIST,$this->secure($dt_user),$this->data['userdata']['token']); 
         $users = json_decode($users);
@@ -25,8 +25,6 @@ class User extends SAM_Controller {
             // Decrypt the response
             $users = json_decode($this->recure($users));
         }
-
-        // var_dump($users);exit;
         if(isset($users->status) && $users->status)
         {
             $this->data['user_list'] = $users->data;
@@ -56,6 +54,10 @@ class User extends SAM_Controller {
    
     public function add()
     {
+        if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_input']) {
+            $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
+            redirect('user');
+        }
         $userToken = $this->data['userdata']['token'];
 
         $region = $this->client_url->postCURL(REGION_LIST,'',$userToken); 
@@ -81,7 +83,6 @@ class User extends SAM_Controller {
         }
 
         $dt_user = [
-            'level' => $this->data['userdata']['level'],
             'status' => 1
         ];
         $userposition = $this->client_url->postCURL(USERPOSITION_LIST,$this->secure($dt_user),$userToken); 
@@ -90,10 +91,24 @@ class User extends SAM_Controller {
             // Decrypt the response
             $userposition = json_decode($this->recure($userposition));
         }
-
         if(isset($userposition->status) && $userposition->status)
         {
             $this->data['userposition_list'] = $userposition->data;
+        }
+
+        $dt_roles = [
+            'is_sa' => $this->data['userdata']['is_sa'],
+            'status' => 1
+        ];
+        $roles = $this->client_url->postCURL(ROLES_LIST,$this->secure($dt_roles),$userToken); 
+        $roles = json_decode($roles);
+        if($roles!=null && !isset($roles->status)){
+            // Decrypt the response
+            $roles = json_decode($this->recure($roles));
+        }
+        if(isset($roles->status) && $roles->status)
+        {
+            $this->data['roles_list'] = $roles->data;
         }
 
         // $this->data['auth_token'] = $this->getAuthToken();
@@ -116,7 +131,10 @@ class User extends SAM_Controller {
 
     public function edit($id)
     {
-
+        if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_edit']) {
+            $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
+            redirect('user');
+        }
         $userToken = $this->data['userdata']['token'];
 
         $region = $this->client_url->postCURL(REGION_LIST,'',$userToken); 
@@ -142,7 +160,6 @@ class User extends SAM_Controller {
         }
 
         $dt_user = [
-            'level' => $this->data['userdata']['level'],
             'status' => 1
         ];
         $userposition = $this->client_url->postCURL(USERPOSITION_LIST,$this->secure($dt_user),$userToken); 
@@ -151,10 +168,24 @@ class User extends SAM_Controller {
             // Decrypt the response
             $userposition = json_decode($this->recure($userposition));
         }
-
         if(isset($userposition->status) && $userposition->status)
         {
             $this->data['userposition_list'] = $userposition->data;
+        }
+
+        $dt_roles = [
+            'is_sa' => $this->data['userdata']['is_sa'],
+            'status' => 1
+        ];
+        $roles = $this->client_url->postCURL(ROLES_LIST,$this->secure($dt_roles),$userToken); 
+        $roles = json_decode($roles);
+        if($roles!=null && !isset($roles->status)){
+            // Decrypt the response
+            $roles = json_decode($this->recure($roles));
+        }
+        if(isset($roles->status) && $roles->status)
+        {
+            $this->data['roles_list'] = $roles->data;
         }
 
         $this->data['id'] = $id;
@@ -188,6 +219,7 @@ class User extends SAM_Controller {
             'region' => $wilayah,
             'branch' => $cabang,
             'position' => $jabatan,
+            'roles' => $roles,
             'status' => 1
         ];
         $user = $this->client_url->postCURL(USER_CREATE,$this->secure($dt_user),$this->data['userdata']['token']); 
@@ -216,6 +248,7 @@ class User extends SAM_Controller {
             'region' => $wilayah,
             'branch' => $cabang,
             'position' => $jabatan,
+            'roles' => $roles,
             'status' => $status,
             'user' => $this->data['userdata']['nama']
         ];

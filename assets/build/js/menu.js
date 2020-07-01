@@ -57,20 +57,22 @@ $('#deleteBtn').click(function(){
     }
 })
 
-$('#userposition').on('change',function(){
+$('#roles').on('change',function(){
     var id = $(this).val();
-    $('input[name="userposition"]').val(id);
+    $('input[name="roles"]').val(id);
 
-    countUnchecked();
+    checkPermission(id);
 });
 
 function getDataMenu() {
-	$('#dataMenu').DataTable();  
+	$('#dataMenu').DataTable({
+        "scrollX":true
+    });  
 }
 
 function countUnchecked()
 {
-    var id = $('input[name="userposition"]').val();
+    var id = $('input[name="roles"]').val();
     var len = $(':checkbox:not(:checked)').length;
     var checked = $(':checkbox:checked').length;
 
@@ -85,6 +87,26 @@ function countUnchecked()
     }else{
         $('#btn_save').prop('disabled',true);
     }
+}
+
+function checkPermission(user_id)
+{
+    $('input:checkbox').removeAttr('checked');
+    $('#btn_save').prop('disabled',false);
+    $.ajax({
+        url : './menu_permission/getUserPermission',
+        type : 'POST',
+        data : {
+            'user_id':user_id
+        },
+        success:function(result){
+            $.each(result,function(i,v){
+                $('#'+v.id_menu).prop("checked",true);
+            });
+
+            countUnchecked();
+        }
+    });
 }
 
 function formInputMenuValidation(){

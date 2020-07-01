@@ -62,7 +62,7 @@
                                 <option value="">Pilih Provinsi</option>
                                 <?php if(isset($province_list) && !empty($province_list)) : 
                                     foreach ($province_list as $prv) {
-                                        $selected = ($data->provinsi==$prv->id?'selected':'');
+                                        $selected = ($data->provinsi_id==$prv->id?'selected':'');
                                         echo '<option value="'.$prv->id.'" '.$selected.'>'.$prv->name.'</option>';
                                     }
                                 endif; ?>
@@ -77,7 +77,7 @@
                                 <option value="">Pilih Kota/Kabupaten</option>
                                 <?php if(isset($regency_list) && !empty($regency_list)) : 
                                     foreach ($regency_list as $rgc) {
-                                        $selected = ($data->kota_kabupaten==$rgc->id?'selected':'');
+                                        $selected = ($data->kota_kabupaten_id==$rgc->id?'selected':'');
                                         echo '<option value="'.$rgc->id.'" '.$selected.'>'.$rgc->name.'</option>';
                                     }
                                 endif; ?>
@@ -92,7 +92,7 @@
                                 <option value="">Pilih Kecamatan</option>
                                 <?php if(isset($district_list) && !empty($district_list)) : 
                                     foreach ($district_list as $dst) {
-                                        $selected = ($data->kecamatan==$dst->id?'selected':'');
+                                        $selected = ($data->kecamatan_id==$dst->id?'selected':'');
                                         echo '<option value="'.$dst->id.'" '.$selected.'>'.$dst->name.'</option>';
                                     }
                                 endif; ?>
@@ -107,7 +107,7 @@
                                 <option value="">Pilih Kelurahan</option>
                                 <?php if(isset($village_list) && !empty($village_list)) : 
                                     foreach ($village_list as $vlg) {
-                                        $selected = ($data->kelurahan==$vlg->id?'selected':'');
+                                        $selected = ($data->kelurahan_id==$vlg->id?'selected':'');
                                         echo '<option value="'.$vlg->id.'" '.$selected.'>'.$vlg->name.'</option>';
                                     }
                                 endif; ?>
@@ -181,7 +181,8 @@
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
                             <a class="btn btn-primary" type="button" href="<?php echo site_url('lead'); ?>" form="formEditLead">Cancel</a>
-                            <button class="btn btn-success" type="submit" value="Submit" form="formEditLead">Save</button>
+                            <input class="btn btn-info btn-sm" type="submit" name="save" value="Save" form="formInputLead" />
+                            <input class="btn btn-success btn-sm" type="submit" name="submit" value="submit" form="formInputLead" />
                         </div>
                     </div>
                 </form>

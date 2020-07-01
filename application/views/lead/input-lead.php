@@ -139,8 +139,9 @@
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <a class="btn btn-secondary" type="button" href="<?php echo site_url('user'); ?>" value="Cancel" id="btnCancel" form="formInputLead">Cancel</a>
-                            <button class="btn btn-success" type="submit" value="Submit" form="formInputLead">Submit</button>
+                            <a class="btn btn-secondary btn-sm" type="button" href="<?php echo site_url('user'); ?>" value="Cancel" id="btnCancel" form="formInputLead">Cancel</a>
+                            <input class="btn btn-info btn-sm" type="submit" name="save" value="Save" form="formInputLead" />
+                            <input class="btn btn-success btn-sm" type="submit" name="submit" value="submit" form="formInputLead" />
                         </div>
                     </div>
                 </form>

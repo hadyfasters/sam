@@ -19,7 +19,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="card-box table-responsive">
-                            <table id="dataUser" class="table table-striped table-bordered text-center" width="100%">
+                            <table id="dataUser" class="table table-striped table-bordered text-center nowrap" width="100%">
                                 <thead>
                                     <tr>
                                         <th>No.</th>

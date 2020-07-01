@@ -58,14 +58,14 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="startdate">Start Date</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="startdate" name="startdate" class="form-control datepicker" style="border-radius: 6px" data-error=".errorTxt5" placeholder="dd/mm/yyyy" value="<?php echo date('d/m/Y',strtotime($data->start_date)); ?>">
+                            <input type="text" id="startdate" name="startdate" class="form-control datepicker" style="border-radius: 6px" data-error=".errorTxt5" placeholder="dd/mm/yyyy" value="<?php echo date_format(date_create(str_replace("/", "-", $data->start_date)),"d/m/Y"); ?>">
                             <div class="errorTxt5" style="color:red"></div>
                         </div>
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="enddate">End Date</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="enddate" name="enddate" class="form-control datepicker" style="border-radius: 6px" placeholder="dd/mm/yyyy" value="<?php echo date('d/m/Y',strtotime($data->end_date)); ?>" data-error=".errorTxt6">
+                            <input type="text" id="enddate" name="enddate" class="form-control datepicker" style="border-radius: 6px" placeholder="dd/mm/yyyy" value="<?php echo (!is_null($data->end_date)?date_format(date_create(str_replace("/", "-", $data->end_date)),"d/m/Y"):''); ?>" data-error=".errorTxt6">
                             <div class="errorTxt6" style="color:red"></div>
                         </div>
                     </div>
