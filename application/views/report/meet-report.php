@@ -68,24 +68,24 @@
                                 </thead>
                                 <tbody>
                                     <?php 
-                                    if(isset($meet_report_data) && !empty($meet_report_data)) : 
+                                    if(isset($main_lead_report_data) && !empty($main_lead_report_data)) : 
                                         $no = 1;
-                                        foreach ($meet_report_data as $meet_report) {
+                                        foreach ($main_lead_report_data as $lead_report) {
                                             echo '<tr>';
                                             echo '<td width="5%">'.$no.'</td>';
-                                            echo '<td>'.$meet_report->nama_prospek.'</td>';
-                                            echo '<td>'.($meet_report->jenis_nasabah==1?'Perorangan':'Institusi').'</td>';
-                                            echo '<td>'.$meet_report->alamat.'</td>';
-                                            echo '<td>'.$meet_report->kontak_person.'</td>';
-                                            echo '<td>'.$meet_report->no_kontak.'</td>';
-                                            echo '<td>'.number_format($meet_report->potensi_dana).'</td>';
-                                            echo '<td>'.$meet_report->product_name.'</td>';
-                                            echo '<td>'.($meet_report->kategori_nasabah==1?'New':'Existing').'</td>';
-                                            echo '<td>'.$meet_report->additional_info.'</td>';
-                                            echo '<td>'.date('d-m-Y',strtotime($meet_report->created_date)). ' ' .date('H:i:s',strtotime($meet_report->created_date)). ' by ' . $meet_report->created_by . '</td>';
-                                            echo '<td>'.date('d-m-Y',strtotime($meet_report->fu_call_date)).'</td>';
-                                            echo '<td>'.date('d-m-Y',strtotime($meet_report->fu_meet_date)).'</td>';
-                                            echo '<td>'.date('d-m-Y',strtotime($meet_report->fu_close_date)).'</td>';                                            
+                                            echo '<td>'.$lead_report->npp.'</td>';
+                                            // echo '<td>'.($meet_report->jenis_nasabah==1?'Perorangan':'Institusi').'</td>';
+                                            // echo '<td>'.$meet_report->alamat.'</td>';
+                                            // echo '<td>'.$meet_report->kontak_person.'</td>';
+                                            // echo '<td>'.$meet_report->no_kontak.'</td>';
+                                            // echo '<td>'.number_format($meet_report->potensi_dana).'</td>';
+                                            // echo '<td>'.$meet_report->product_name.'</td>';
+                                            // echo '<td>'.($meet_report->kategori_nasabah==1?'New':'Existing').'</td>';
+                                            // echo '<td>'.$meet_report->additional_info.'</td>';
+                                            // echo '<td>'.date('d-m-Y',strtotime($meet_report->created_date)). ' ' .date('H:i:s',strtotime($meet_report->created_date)). ' by ' . $meet_report->created_by . '</td>';
+                                            // echo '<td>'.date('d-m-Y',strtotime($meet_report->fu_call_date)).'</td>';
+                                            // echo '<td>'.date('d-m-Y',strtotime($meet_report->fu_meet_date)).'</td>';
+                                            // echo '<td>'.date('d-m-Y',strtotime($meet_report->fu_close_date)).'</td>';                                            
                                             echo '</tr>';
                                             $no++;
                                         }
