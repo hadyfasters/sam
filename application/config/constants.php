@@ -161,6 +161,41 @@ define('LEAD_CREATE','lead/create');
 define('LEAD_UPDATE','lead/update');
 define('LEAD_APPROVE','lead/approval');
 define('LEAD_REMOVE','lead/remove');
+define('LEAD_PROSPECT_LIST','lead/get_prospect');
+
+// Endpoint CALL
+define('CALL_LIST','call/lists');
+define('CALL_SEARCH','call/get');
+define('CALL_GET','call/detail');
+define('CALL_CREATE','call/create');
+define('CALL_UPDATE','call/update');
+define('CALL_APPROVE','call/approval');
+define('CALL_REMOVE','call/remove');
+define('CALL_PROSPECT_LIST','call/get_prospect');
+define('CALL_ATTEMPT','call/count_attempt');
+define('CALL_TRX_LIST','call/trx_lists');
+
+// Endpoint MEET
+define('MEET_LIST','meet/lists');
+define('MEET_SEARCH','meet/get');
+define('MEET_GET','meet/detail');
+define('MEET_CREATE','meet/create');
+define('MEET_UPDATE','meet/update');
+define('MEET_APPROVE','meet/approval');
+define('MEET_REMOVE','meet/remove');
+define('MEET_PROSPECT_LIST','meet/get_prospect');
+define('MEET_ATTEMPT','meet/count_attempt');
+define('MEET_TRX_LIST','meet/trx_lists');
+
+// Endpoint CLOSE
+define('CLOSE_LIST','close/lists');
+define('CLOSE_SEARCH','close/get');
+define('CLOSE_GET','close/detail');
+define('CLOSE_CREATE','close/create');
+define('CLOSE_UPDATE','close/update');
+define('CLOSE_APPROVE','close/approval');
+define('CLOSE_REMOVE','close/remove');
+define('CLOSE_TRX_LIST','close/trx_lists');
 
 // Endpoint REPORT
-define('ACTIVITY_REPORT','report/activity');
+define('ACTIVITY_REPORT','report/lead_main');

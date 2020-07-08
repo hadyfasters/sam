@@ -19,6 +19,13 @@
                             <div class="x_content">
                                 <table class="table table-bordered table-responsive-sm">
                                     <tbody>
+                                        <tr class="text-right text-white">
+                                            <td colspan="2" class="<?php echo $data->approval_color; ?>">
+                                                <strong>
+                                                    <?php echo $data->approval_status.(!empty($data->approval_date)?' / '.$data->approval_date:'');?>
+                                                </strong>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td class="text-right font-weight-bold" style="width: 30%">Kategori Nasabah</td>
                                             <td class=""><?php echo ($data->kategori_nasabah==1?'New':'Exist');?></td>
@@ -84,13 +91,25 @@
                                                 </table>
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td colspan="2" class="text-right">
-                                                <button class="btn btn-primary btn-sm" onclick="window.close()">Close</button>
-                                            </td>
-                                        </tr>
                                     </tbody>
                                 </table>
+                                <?php if($userdata['acl_approve'] && is_null($data->approval) || $data->approval==0) : ?>
+                                <form id="formApproveLead" method="POST" action="<?php echo site_url('lead/approval'); ?>" data-parsley-validate class="form-horizontal form-label-left">
+                                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                                    <div class="item form-group">
+                                        <div class="col-md-12 col-sm-12 text-right">
+                                            <input class="btn btn-primary btn-sm" type="submit" name="reject" value="Reject" id="btnRejectCall" form="formApproveLead" onclick="return confirm('Apakah Anda Yakin?')" />
+                                            <input class="btn btn-success btn-sm" type="submit" name="approve" value="Approve" form="formApproveLead" onclick="return confirm('Apakah Anda Yakin?')" />
+                                        </div>
+                                    </div>
+                                </form>
+                                <?php else : ?>
+                                    <div class="item form-group">
+                                        <div class="col-md-12 col-sm-12 text-right">
+                                            <button class="btn btn-primary btn-sm" onclick="window.close()">Close</button>
+                                        </div>
+                                    </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>

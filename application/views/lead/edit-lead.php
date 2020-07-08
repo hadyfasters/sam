@@ -180,9 +180,9 @@
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <a class="btn btn-primary" type="button" href="<?php echo site_url('lead'); ?>" form="formEditLead">Cancel</a>
-                            <input class="btn btn-info btn-sm" type="submit" name="save" value="Save" form="formInputLead" />
-                            <input class="btn btn-success btn-sm" type="submit" name="submit" value="submit" form="formInputLead" />
+                            <a class="btn btn-primary btn-sm" type="button" href="<?php echo site_url('lead'); ?>" form="formEditLead">Cancel</a>
+                            <input class="btn btn-info btn-sm" type="submit" name="save" value="Save" form="formEditLead" />
+                            <input class="btn btn-success btn-sm" type="submit" name="submit" value="submit" form="formEditLead" />
                         </div>
                     </div>
                 </form>

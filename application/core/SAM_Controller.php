@@ -10,6 +10,7 @@ class SAM_Controller extends CI_Controller{
         parent::__construct();
         $this->load->library('session');
         $this->load->library('client_url');
+        $this->load->helper('text');
 
         if(!empty($this->session->userdata('data_login'))){
             if(time() < $this->session->userdata('data_login')['expired']){
@@ -35,7 +36,7 @@ class SAM_Controller extends CI_Controller{
             $menu_resp = json_decode($this->recure($menu_resp));
         }
 
-        return $menu_resp->data;
+        return @$menu_resp->data;
     }
 
     public function secure($input)

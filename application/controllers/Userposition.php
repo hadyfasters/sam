@@ -57,7 +57,6 @@ class Userposition extends SAM_Controller {
     public function add()
     {
         if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_input']) {
-            echo 'SA : '.$this->data['userdata']['is_sa'].' / INPUT : '.$this->data['userdata']['acl_input'];exit;
             $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
             redirect('userposition');
         }
@@ -105,11 +104,9 @@ class Userposition extends SAM_Controller {
         extract($this->input->post());
 
         $dt_userposition = [
-            'title' => $userposition_title,
-            'level' => 0,
+            'position_name' => $userposition_title,
             'default_password' => $default_password,
-            'is_active' => 0,
-            'user' => $this->data['userdata']['nama']
+            'is_active' => 0
         ];
         $userposition = $this->client_url->postCURL(USERPOSITION_CREATE,$this->secure($dt_userposition),$this->data['userdata']['token']); 
         $userposition = json_decode($userposition);
@@ -133,10 +130,9 @@ class Userposition extends SAM_Controller {
 
         $dt_userposition = [
             'id' => $id,
-            'title' => $userposition_title,
-            'level' => 0,
+            'position_name' => $userposition_title,
             'default_password' => $default_password,
-            // 'is_active' => 0,
+            'is_active' => $status,
         ];
         $userposition = $this->client_url->postCURL(USERPOSITION_UPDATE,$this->secure($dt_userposition),$this->data['userdata']['token']); 
         $userposition = json_decode($userposition);

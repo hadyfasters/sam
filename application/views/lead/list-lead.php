@@ -73,10 +73,12 @@
     </div>
     <div class="col-md-12 col-sm-12">
         <div class="x_panel" style="border-radius: 8px">
+            <?php if($userdata['is_sa'] || (!$userdata['is_sa'] && $userdata['acl_input']) ) : ?>
             <div class="x_title">
                 <button style="border-radius: 6px" type="button" class="btn btn-primary btn-sm mb-1 mt-2"><i class="fa fa-plus-circle "></i><a style="color: white;" href="<?php echo site_url('lead/add') ?>">  New Data</a></button>   
                 <div class="clearfix"></div>
             </div>
+            <?php endif; ?>
             <div class="x_content" style="width: 100%;">
                 <div class="row">
                     <div class="col-sm-12">
@@ -96,6 +98,7 @@
                                         <th>FU Call</th>   
                                         <th>FU Meet</th>   
                                         <th>FU Close</th>   
+                                        <th>Status</th>  
                                         <th>Action</th>       
                                     </tr>
                                 </thead>
@@ -104,6 +107,15 @@
                                     if(isset($lead_list) && !empty($lead_list)) : 
                                         $no = 1;
                                         foreach ($lead_list as $lead) {
+                                            $approval_status = 'Draft';
+                                            if($lead->status > 0){
+                                                switch($lead->approval){
+                                                    case '1' : $approval_status = '<i class="fa fa-check text-success"></i> Approved'; break;
+                                                    case '2' : $approval_status = '<i class="fa fa-times text-danger"></i> Rejected'; break;
+                                                    default : $approval_status = 'Waiting for Approval'; break;
+                                                }
+                                            }
+
                                             echo '<tr>';
                                             echo '<td width="3%">'.$no.'</td>';
                                             echo '<td><a href="'.site_url('lead/detail/'.$lead->lead_id).'" title="View Detail" target="_blank">'.$lead->nama_prospek.'</a></td>';
@@ -114,12 +126,20 @@
                                             echo '<td>'.(!is_null($lead->call_date)?date('d-m-Y',strtotime($lead->call_date)):'-').'</td>';
                                             echo '<td>'.(!is_null($lead->meet_date)?date('d-m-Y',strtotime($lead->meet_date)):'-').'</td>';
                                             echo '<td>'.(!is_null($lead->close_date)?date('d-m-Y',strtotime($lead->close_date)):'-').'</td>';
+                                            echo '<td>'.$approval_status.'</td>';
                                             echo '<td class="text-center">';
-                                            if(is_null($lead->status) || $lead->status==0) :
+                                            if(is_null($lead->status) || $lead->status==0 || ($lead->approval=='2' && $userdata['acl_edit'])) :
                                             echo '<a class="btn btn-link btn-sm" href="'.site_url('lead/edit/'.$lead->lead_id).'" title="Edit"><i class="fa fa-pencil"></i></a>';
+                                            endif;
+                                            if(is_null($lead->status) || $lead->status==0) :
                                             echo '<a class="btn btn-link btn-sm" href="'.site_url('lead/remove/'.$lead->lead_id).'" title="Delete" onclick="return confirm(\'Apakah Anda Yakin?\')"><i class="fa fa-trash"></i></a>';
-                                            else :
-                                            echo '<i class="fa fa-lock"></i> LOCKED';
+                                            endif;
+                                            if(is_null($lead->approval) && $lead->status==1 && $userdata['acl_approve']) :
+                                                if($userdata['acl_approve']){
+                                                    echo '<a class="btn btn-link btn-sm" href="'.site_url('lead/detail/'.$lead->lead_id).'" title="Approval"><i class="fa fa-check"></i></a>';      
+                                                }else{
+                                                    echo '<i class="fa fa-lock"></i> LOCKED';
+                                                }
                                             endif;
                                             echo '</td>';
 

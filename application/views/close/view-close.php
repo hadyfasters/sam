@@ -19,61 +19,68 @@
             <div class="x_content">
                 <table class="table table-bordered table-responsive-sm">
                     <tbody>
-                        <tr>
-                            <td class="text-right font-weight-bold" style="width: 30%">Kategori Nasabah</td>
-                            <td class="">Kategori 1</td>
+                        <tr class="text-right text-white">
+                            <td colspan="2" class="<?php echo $data->approval_color; ?>">
+                                <strong>
+                                    <?php echo $data->approval_status.(!empty($data->approval_date)?' / '.$data->approval_date:'');?>
+                                </strong>
+                            </td>
                         </tr>
                         <tr>
-                            <td class="text-right font-weight-bold"" style="width: 30%">Nama Prospect</td>
-                            <td>Annisa Hapsari</td>
+                            <td class="text-right font-weight-bold" style="width: 30%">Kategori Nasabah</td>
+                            <td class=""><?php echo ($data->kategori_nasabah==1?'New':'Exist');?></td>
+                        </tr>
+                        <tr>
+                            <td class="text-right font-weight-bold" style="width: 30%">Nama Prospect</td>
+                            <td><?php echo $data->nama_prospek; ?></td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Jenis Nasabah</td>
-                            <td>Perorangan</td>
+                            <td><?php echo ($data->jenis_nasabah==1?'Perorangan':'Institusi');?></td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Alamat</td>
-                            <td>Jalan Raya Antah Berantah Kav. 2A, No. 192</td>
+                            <td><?php echo $data->alamat; ?></td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Provinsi</td>
-                            <td>Jawa Tenggara</td>
+                            <td><?php echo $data->provinsi; ?></td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Kota/Kabupaten</td>
-                            <td>Bikini Bottom</td>
+                            <td><?php echo $data->kota_kabupaten; ?></td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Kecamatan</td>
-                            <td>Bikini Top</td>
+                            <td><?php echo $data->kecamatan; ?></td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Kelurahan</td>
-                            <td>Bikini Right Side</td>
+                            <td><?php echo $data->kelurahan; ?></td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Contact Person</td>
-                            <td>13124342523</td>
+                            <td><?php echo ($data->kontak_person?$data->kontak_person:'-'); ?></td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Contact Number</td>
-                            <td>1434234234234</td>
+                            <td><?php echo $data->no_kontak; ?></td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">No. Rekening</td>
-                            <td>1434234234234</td>
+                            <td><?php echo $data->no_rekening; ?></td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Potensi Dana Masuk</td>
-                            <td>120.000.000</td>
+                            <td><?php echo number_format($data->potensi_dana); ?></td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Realisasi Dana Masuk</td>
-                            <td>120.000.000</td>
+                            <td><?php echo number_format($data->realisasi_dana); ?></td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Produk Sumber Dana</td>
-                            <td>450.000.000</td>
+                            <td><?php echo $data->product_name; ?></td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Closing</td>
@@ -81,8 +88,8 @@
                                 <table class="table table-borderless" style="margin-top: -10px; margin-bottom: -7px">
                                     <tbody>
                                         <tr>
-                                            <td style="width: 30%"><strong>Tanggal: </strong> 20/01/2020</td>
-                                            <td style="width: 60%"><strong>Pukul: </strong> 22:19</td>
+                                            <td style="width: 30%"><strong>Tanggal: </strong><?php echo date('d/m/Y',strtotime($data->issued_date)); ?></td>
+                                            <td style="width: 60%"><strong>Pukul: </strong><?php echo date('H:i',strtotime($data->issued_time)); ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -93,36 +100,73 @@
                             <td>
                                 <table class="table table-borderless" style="margin-top: -10px; margin-bottom: -7px">
                                     <tbody>
+                                        <?php $i=1;
+                                            $last_tx = '';
+                                            foreach($trx_data as $trx) : 
+                                            $last_tx = $trx->tx_id;
+                                            $filesize = $trx->file_size*1024; ?>
                                         <tr>
-                                            <td>1.</td>
-                                            <td>foto_satu.jpg</td>
-                                            <td>1290 Kb</td>
-                                            <td>20/09/2020 12:05:89</td>
+                                            <td><?php echo $i; ?></td>
+                                            <td><a href="<?php echo site_url('uploads/'.$trx->file_name); ?>" target="_blank"><?php echo ellipsize($trx->file_name,32,.5); ?></a></td>
+                                            <td><?php echo formatSizeUnits($filesize); ?></td>
+                                            <td><?php echo $trx->created_date; ?></td>
                                         </tr>
-                                        <tr>
-                                            <td>2.</td>
-                                            <td>test.jpg</td>
-                                            <td>1290 Kb</td>
-                                            <td>20/09/2020 12:05:89</td>
-                                        </tr>
+                                        <?php $i++; endforeach; ?>
                                     </tbody>
                                 </table>
                             </td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Dari Meet ke-</td>
-                            <td>1</td>
+                            <td>
+                                <table class="table table-borderless" style="margin-top: -10px; margin-bottom: -7px">
+                                    <tbody>
+                                        <tr>
+                                            <td><?php echo $data->meet_attempt; ?></td>
+                                            <td style="width: 30%"><strong>Tanggal: </strong><?php echo date('d/m/Y',strtotime($data->meet_date)); ?></td>
+                                            <td style="width: 60%"><strong>Pukul: </strong><?php echo date('H:i',strtotime($data->meet_time)); ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Dari Call ke-</td>
-                            <td>1</td>
+                            <td>
+                                <table class="table table-borderless" style="margin-top: -10px; margin-bottom: -7px">
+                                    <tbody>
+                                        <tr>
+                                            <td><?php echo $data->call_attempt; ?></td>
+                                            <td style="width: 30%"><strong>Tanggal: </strong><?php echo date('d/m/Y',strtotime($data->call_date)); ?></td>
+                                            <td style="width: 60%"><strong>Pukul: </strong><?php echo date('H:i',strtotime($data->call_time)); ?></td>
+                                        </tr>
+                                    </tbody>
+                                </table>    
+                            </td>
                         </tr>
                         <tr>
                             <td class="text-right font-weight-bold" style="width: 30%">Additional Info</td>
-                            <td>Kaga ada sih sebenernya</td>
+                            <td><?php echo ($data->additional_info?$data->additional_info:'-'); ?></td>
                         </tr>
                     </tbody>
                 </table>
+                <?php if($userdata['acl_approve'] && is_null($data->approval) || $data->approval==0) : ?>
+                <form id="formApproveClose" method="POST" action="<?php echo site_url('close/approval'); ?>" data-parsley-validate class="form-horizontal form-label-left">
+                    <input type="hidden" name="id" value="<?php echo $id; ?>">
+                    <div class="item form-group">
+                        <div class="col-md-12 col-sm-12 text-right">
+                            <input class="btn btn-primary btn-sm" type="submit" name="reject" value="Reject" id="btnRejectMeet" form="formApproveClose" onclick="return confirm('Apakah Anda Yakin?')" />
+                            <input class="btn btn-success btn-sm" type="submit" name="approve" value="Approve" form="formApproveClose" onclick="return confirm('Apakah Anda Yakin?')" />
+                        </div>
+                    </div>
+                </form>
+                <?php else : ?>
+                    <div class="item form-group">
+                        <div class="col-md-12 col-sm-12 text-right">
+                            <button class="btn btn-primary btn-sm" onclick="window.close()">Close</button>
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
         </div>
     </div>

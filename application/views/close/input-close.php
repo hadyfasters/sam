@@ -17,14 +17,17 @@
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
-                <form id="formInputClose" data-parsley-validate class="form-horizontal form-label-left">
+                <form id="formInputClose" method="POST" action="<?php echo site_url('close/saveData'); ?>" enctype="multipart/form-data" data-parsley-validate class="form-horizontal form-label-left">
+                    <input type="hidden" id="lead_id" name="lead_id">
+                    <input type="hidden" id="call_id" name="call_id">  
+                    <input type="hidden" id="meet_id" name="meet_id">  
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="kategorinasabah">Kategori Nasabah</label>
                         <div class="col-md-6 col-sm-6 ">
                             <select style="border-radius: 6px; color: #495057;" id="kategorinasabah" name="kategorinasabah" class="form-control" data-error=".errorTxt1" >
                                 <option value="">Kategori Nasabah</option>
-                                <option value="press">Kategori Nasabah 1</option>
-                                <option value="net">Kategori Nasabah 1</option>
+                                <option value="1">New</option>
+                                <option value="2">Existing</option>
                             </select>
                             <div class="errorTxt1" style="color:red"></div>
                         </div>
@@ -34,8 +37,6 @@
                         <div class="col-md-6 col-sm-6 ">
                             <select style="border-radius: 6px; color: #495057;" id="namaprospect" name="namaprospect" class="form-control" data-error=".errorTxt2" >
                                 <option value="">Nama Prospect</option>
-                                <option value="press">Kategori Nasabah 1</option>
-                                <option value="net">Kategori Nasabah 1</option>
                             </select>
                             <div class="errorTxt2" style="color:red"></div>
                         </div>
@@ -44,9 +45,9 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="jenisnasabah">Jenis Nasabah</label>
                         <div class="col-md-6 col-sm-6 ">
                             <select style="border-radius: 6px; color: #495057;" id="jenisnasabah" name="jenisnasabah" class="form-control" data-error=".errorTxt3" disabled >
-                                <option value="">Pilih Jenis Nasabah..</option>
-                                <option value="press">Jenis Nasabah 1</option>
-                                <option value="net">Jenis Nasabah 2</option>
+                                <option value="">Pilih Jenis Nasabah</option>
+                                <option value="1">Perorangan</option>
+                                <option value="2">Institusi</option>
                             </select>
                             <div class="errorTxt3" style="color:red"></div>
                         </div>
@@ -62,9 +63,12 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="provinsi">Provinsi </label>
                         <div class="col-md-6 col-sm-6 ">
                             <select style="border-radius: 6px; color: #495057;" id="provinsi" name="provinsi" class="form-control" data-error=".errorTxt5" disabled>
-                                <option value="">Pilih Provinsi..</option>
-                                <option value="press">Provinsi 1</option>
-                                <option value="net">Provinsi 2</option>
+                                <option value="">Pilih Provinsi</option>
+                                <?php if(isset($province_list) && !empty($province_list)) : 
+                                    foreach ($province_list as $prv) {
+                                        echo '<option value="'.$prv->id.'">'.$prv->name.'</option>';
+                                    }
+                                endif; ?>
                             </select>
                             <div class="errorTxt5" style="color:red"></div>
                         </div>
@@ -73,9 +77,12 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="kota">Kota/Kabupaten</label>
                         <div class="col-md-6 col-sm-6 ">
                             <select style="border-radius: 6px; color: #495057;" id="kota" name="kota" class="form-control" data-error=".errorTxt6" disabled>
-                                <option value="">Pilih Kota/Kabupaten..</option>
-                                <option value="press">Kota/Kabupaten 1</option>
-                                <option value="net">Kota/Kabupaten 2</option>
+                                <option value="">Pilih Kota/Kabupaten</option>
+                                <?php if(isset($regency_list) && !empty($regency_list)) : 
+                                    foreach ($regency_list as $rgc) {
+                                        echo '<option value="'.$rgc->id.'">'.$rgc->name.'</option>';
+                                    }
+                                endif; ?>
                             </select>
                             <div class="errorTxt6" style="color:red"></div>
                         </div>
@@ -84,9 +91,12 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="kecamatan">Kecamatan</label>
                         <div class="col-md-6 col-sm-6 ">
                             <select style="border-radius: 6px; color: #495057;" id="kecamatan" name="kecamatan" class="form-control" data-error=".errorTxt7" disabled>
-                                <option value="">Pilih Kecamatan..</option>
-                                <option value="press">Kecamatan 1</option>
-                                <option value="net">Kecamatan 2</option>
+                                <option value="">Pilih Kecamatan</option>
+                                <?php if(isset($district_list) && !empty($district_list)) : 
+                                    foreach ($district_list as $dst) {
+                                        echo '<option value="'.$dst->id.'">'.$dst->name.'</option>';
+                                    }
+                                endif; ?>
                             </select>
                             <div class="errorTxt7" style="color:red"></div>
                         </div>
@@ -96,8 +106,11 @@
                         <div class="col-md-6 col-sm-6 ">
                             <select style="border-radius: 6px; color: #495057;" id="kelurahan" name="kelurahan" class="form-control" data-error=".errorTxt8" disabled>
                                 <option value="">Pilih Kelurahan..</option>
-                                <option value="press">Kelurahan 1</option>
-                                <option value="net">Kelurahan 2</option>
+                                <?php if(isset($village_list) && !empty($village_list)) : 
+                                    foreach ($village_list as $vlg) {
+                                        echo '<option value="'.$vlg->id.'">'.$vlg->name.'</option>';
+                                    }
+                                endif; ?>
                             </select>
                             <div class="errorTxt8" style="color:red"></div>
                         </div>
@@ -141,9 +154,12 @@
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="produksumberdana">Produk Sumber Dana</label>
                         <div class="col-md-6 col-sm-6 ">
                             <select style="border-radius: 6px; color: #495057;" id="produksumberdana" name="produksumberdana" class="form-control" data-error=".errorTxt14" disabled>
-                                <option value="">Pilih Sumber Dana..</option>
-                                <option value="press">Sumber Dana 1</option>
-                                <option value="net">Sumber Dana 2</option>
+                                <option value="">Pilih Produk</option>
+                                <?php if(isset($product_list) && !empty($product_list)) : 
+                                    foreach ($product_list as $prd) {
+                                        echo '<option value="'.$prd->product_id.'">'.$prd->product_name.'</option>';
+                                    }
+                                endif; ?>
                             </select>
                             <div class="errorTxt14" style="color:red"></div>
                         </div>
@@ -173,13 +189,14 @@
                         <div class="col-md-6 col-sm-6">
                             <div class="input-group">
                                 <div>
-                                    <input type="file" class="custom-file-input" id="attach" onclick="attachment()">
-                                    <label class="custom-file-label" for="attach" style="border-radius:6px"><span id="file-name"></span></label>
+                                    <input type="file" id="attach" name="attachment"/>
+                                    <!-- <input type="file" class="custom-file-input" id="attach" onclick="attachment()">
+                                    <label class="custom-file-label" for="attach" style="border-radius:6px"><span id="file-name"></span></label> -->
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="item form-group">
+                    <!-- <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="attach_list"></label>
                         <div class="col-md-6 col-sm-6">
                             <table class="table">
@@ -197,7 +214,7 @@
                                 </tr>
                             </table>    
                         </div>
-                    </div>
+                    </div> -->
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="meet_ke">Dari Meet ke-</label>
                         <div class="col-md-6 col-sm-6 ">
@@ -221,8 +238,9 @@
                     <div class="ln_solid"></div>
                     <div class="item form-group">
                         <div class="col-md-6 col-sm-6 offset-md-3">
-                            <button class="btn btn-primary" type="button" value="Save" id="btnSaveLead" form="formInputClose">Save</button>
-                            <button class="btn btn-success" type="submit" value="Submit" form="formInputClose">Submit</button>
+                            <a class="btn btn-secondary btn-sm" type="button" href="<?php echo site_url('close'); ?>" value="Cancel" id="btnCancel" form="formInputClose">Cancel</a>
+                            <button class="btn btn-primary btn-sm" type="submit" name="save" value="save" id="btnSaveLead" form="formInputClose">Save</button>
+                            <button class="btn btn-success btn-sm" type="submit" name="submit" value="submit" form="formInputClose">Submit</button>
                         </div>
                     </div>
                 </form>

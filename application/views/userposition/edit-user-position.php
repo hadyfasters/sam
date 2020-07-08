@@ -25,15 +25,31 @@
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="userposition">User</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="userposition" name="userposition_title" class="form-control" style="border-radius: 6px" placeholder="User Position" data-error=".errorTxt1" value="<?php echo $data->up_name; ?>">
+                            <input type="text" id="userposition" name="userposition_title" class="form-control" style="border-radius: 6px" placeholder="User Position" data-error=".errorTxt1" value="<?php echo $data->position_name; ?>">
                             <div class="errorTxt1" style="color:red"></div>
                         </div>
                     </div>
                     <div class="item form-group">
                         <label class="col-form-label col-md-3 col-sm-3 label-align" for="password">Password</label>
                         <div class="col-md-6 col-sm-6 ">
-                            <input type="text" id="password" name="default_password" class="form-control" style="border-radius: 6px" placeholder="Default Password" data-error=".errorTxt2" value="<?php echo $data->up_default; ?>">
+                            <input type="text" id="password" name="default_password" class="form-control" style="border-radius: 6px" placeholder="Default Password" data-error=".errorTxt2" value="<?php echo $data->default_password; ?>">
                             <div class="errorTxt2" style="color:red"></div>
+                        </div>
+                    </div>
+                    <div class="item form-group">
+                        <label class="col-form-label col-md-3 col-sm-3 label-align" for="status">Status</label>
+                        <div class="col-md-6 col-sm-6 ">
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" class="status" name="status" data-error=".errorTxt3" value="1" <?php echo ($data->is_active==1? 'checked' : '') ?>> Aktif
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    <input type="radio" class="status" name="status" data-error=".errorTxt3" value="0" <?php echo ($data->is_active==0? 'checked' : '') ?>> Tidak Aktif
+                                </label>
+                            </div>
+                            <div class="errorTxt3" style="color:red"></div>
                         </div>
                     </div>
                     <div id="salesSelected"></div>

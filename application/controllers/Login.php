@@ -76,6 +76,7 @@ class Login extends SAM_Controller {
                 'job_id' => $response->data->job_id,
                 'role' => $response->data->role,
                 'role_id' => $response->data->role_id,
+                'branch_id' => $response->data->branch_id,
                 'branch_code' => $response->data->branch_code,
                 'token' => $response->data->token,
                 'expired' => $response->data->expired,

@@ -41,6 +41,9 @@
 		<link href="<?php echo base_url()?>assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
 		<link href="<?php echo base_url()?>assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
 
+        <!-- select2 -->
+		<link href="<?php echo base_url()?>assets/select2/css/select2.min.css" rel="stylesheet">
+
 		<!-- Custom Theme Style -->
 		<link href="<?php echo base_url()?>assets/build/css/custom.min.css" rel="stylesheet">
 		<link href="<?php echo base_url()?>assets/build/css/mycustom.css" rel="stylesheet">
@@ -110,6 +113,9 @@
         <script src="<?php echo base_url()?>assets/vendors/datatables.net-responsive/js/dataTables.responsive.min.js"></script>
         <script src="<?php echo base_url()?>assets/vendors/datatables.net-responsive-bs/js/responsive.bootstrap.js"></script>
         <script src="<?php echo base_url()?>assets/vendors/datatables.net-scroller/js/dataTables.scroller.min.js"></script> -->
+
+        <!-- Select2.js -->
+        <script src="<?php echo base_url()?>assets/select2/js/select2.min.js"></script>
 
         <!-- Custom Theme Scripts -->
         <script src="<?php echo base_url()?>assets/build/js/custom.js"></script>

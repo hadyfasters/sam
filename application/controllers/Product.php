@@ -99,8 +99,6 @@ class Product extends SAM_Controller {
     {
         extract($this->input->post());
 
-        // var_dump($this->input->post());exit;
-
         $dt_product = [
             'product_name' => $productname,
             'product_desc' => $productdesc,
@@ -131,8 +129,9 @@ class Product extends SAM_Controller {
             'id' => $id,
             'product_name' => $productname,
             'product_desc' => $productdesc,
-            'status' => $productstatus
+            'status' => $status
         ];
+        
         $product = $this->client_url->postCURL(PRODUCT_UPDATE,$this->secure($dt_product),$this->data['userdata']['token']); 
         $product = json_decode($product);
 

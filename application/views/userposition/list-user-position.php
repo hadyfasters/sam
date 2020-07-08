@@ -30,6 +30,7 @@
                                     <tr>
                                         <th>User</th>
                                         <th>Default Password</th>
+                                        <th>Status</th>
                                         <?php if($userdata['is_sa'] || $userdata['acl_input'] || $userdata['acl_edit'] || $userdata['acl_delete'] || $userdata['acl_approve']) : ?>
                                         <th>Action</th>
                                         <?php endif; ?>
@@ -43,6 +44,7 @@
                                             echo '<tr>';
                                             echo '<td>'.ucwords($up->position_name).'</td>';
                                             echo '<td>'.$up->default_password.'</td>';
+                                            echo '<td>'.($up->is_active ? 'Aktif' : 'Tidak Aktif').'</td>';
                                             if($userdata['is_sa'] || $userdata['acl_input'] || $userdata['acl_edit'] || $userdata['acl_delete'] || $userdata['acl_approve']) :
                                             echo '<td>';
                                             echo '<div class="row">';

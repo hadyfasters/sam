@@ -16,17 +16,15 @@ class Lead extends SAM_Controller {
 	public function index()
 	{
         $path = LEAD_LIST;
-        $search = '';
+        $search = [];
         if(!empty($this->input->post())){
-            $path = LEAD_SEARCH;
-            $forms = [
+            $search = [
                 'produk' => $this->input->post('produksumberdana'),
                 'nama_prospek' => $this->input->post('namaprospek'),
                 'kategori_nasabah' => $this->input->post('kategorinasabah'),
                 'jenis_nasabah' => $this->input->post('jenisnasabah')
             ];
-            $search = $this->secure($forms);
-            $this->data['search'] = $forms;
+            $this->data['search'] = $search;
         }
 
         $products = $this->client_url->postCURL(PRODUCT_LIST,'',$this->data['userdata']['token']); 
@@ -40,6 +38,18 @@ class Lead extends SAM_Controller {
             $this->data['product_list'] = $products->data;
         }
 
+        if(!$this->data['userdata']['acl_approve']){
+            $search['created_by'] = $this->data['userdata']['id_user'];
+        }
+        if(!$this->data['userdata']['is_sa'] && $this->data['userdata']['acl_approve']){
+            $search['status'] = '1';
+        }
+        $search['branch_code'] = $this->data['userdata']['branch_id'];
+
+        if(!empty($search)){
+            $path = LEAD_SEARCH;
+            $search = $this->secure($search);
+        }
         $leads = $this->client_url->postCURL($path,$search,$this->data['userdata']['token']); 
         $leads = json_decode($leads);
         if($leads!=null && !isset($leads->status)){
@@ -51,6 +61,7 @@ class Lead extends SAM_Controller {
         {
             $this->data['lead_list'] = $leads->data;
         }
+        
         $this->data['content'] = 'lead/list-lead';
 
         $this->data['javascriptLoad'] = array(
@@ -74,10 +85,10 @@ class Lead extends SAM_Controller {
 
 	public function search()
 	{
-        $path = LEAD_LIST;
+        // $path = LEAD_LIST;
+        $path = LEAD_SEARCH;
         $search = '';
         if(!empty($this->input->post())){
-            $path = LEAD_SEARCH;
             $forms = [
                 'produk' => $this->input->post('produksumberdana'),
                 'nama_prospek' => $this->input->post('namaprospek'),
@@ -98,6 +109,14 @@ class Lead extends SAM_Controller {
         {
             $this->data['product_list'] = $products->data;
         }
+
+        if(!$this->data['userdata']['acl_approve']){
+            $search['created_by'] = $this->data['userdata']['id_user'];
+        }
+        if(!$this->data['userdata']['is_sa'] && $this->data['userdata']['acl_approve']){
+            $search['status'] = '1';
+        }
+        $this->data['search']['branch_code'] = $this->data['userdata']['branch_id'];
 
         $leads = $this->client_url->postCURL($path,$search,$this->data['userdata']['token']); 
         $leads = json_decode($leads);
@@ -179,6 +198,21 @@ class Lead extends SAM_Controller {
         if($lead!=null && !isset($lead->status)){
             // Decrypt the response
             $lead = json_decode($this->recure($lead));
+        }
+
+        switch($lead->data->approval){
+            case '1' : 
+                $lead->data->approval_status = '<i class="fa fa-check text-success"></i> Approved'; 
+                $lead->data->approval_color = 'bg-info';
+            break;
+            case '2' : 
+                $lead->data->approval_status = '<i class="fa fa-times text-danger"></i> Rejected'; 
+                $lead->data->approval_color = 'bg-warning';
+            break;
+            default : 
+                $lead->data->approval_status = '<i class="fa fa-clock text-danger"></i> Waiting for Approval'; 
+                $lead->data->approval_color = 'bg-default';
+            break;
         }
 
         $this->data['data'] = $lead->data;
@@ -428,7 +462,39 @@ class Lead extends SAM_Controller {
         $arr = [
             'id' => $id,
             'approval' => 1,
-            'approval_by' => $this->data['userdata']['nama']
+            'approval_by' => $this->data['userdata']['id_user']
+        ]; 
+
+        $saving = $this->client_url->postCURL(LEAD_APPROVE,$this->secure($arr),$this->data['userdata']['token']); 
+        $saving = json_decode($saving);
+        if($saving!=null && !isset($saving->status)){
+            // Decrypt the response
+            $saving = json_decode($this->recure($saving));
+        }
+        if(isset($saving->status) && !$saving->status)
+        {
+            $this->session->set_flashdata('error_message', $saving->message);
+        }
+        redirect('lead');
+    }
+
+    function approval()
+    {
+        if(!$this->data['userdata']['is_sa'] && !$this->data['userdata']['acl_approve']) {
+            $this->session->set_flashdata('error_message', 'Access denied! You have no rights to access this page.');
+            redirect('lead');
+        }
+        extract($this->input->post());
+
+        $approval = '1';
+        if(isset($reject)){
+            $approval = '2';
+        }
+
+        $arr = [
+            'id' => $id,
+            'approval' => $approval,
+            'approval_by' => $this->data['userdata']['id_user']
         ]; 
 
         $saving = $this->client_url->postCURL(LEAD_APPROVE,$this->secure($arr),$this->data['userdata']['token']); 
