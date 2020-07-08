@@ -40,7 +40,9 @@
 		<link href="<?php echo base_url()?>assets/vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css" rel="stylesheet">
 		<link href="<?php echo base_url()?>assets/vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css" rel="stylesheet">
 		<link href="<?php echo base_url()?>assets/vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css" rel="stylesheet">
-
+        <link href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css" rel="stylesheet">
+        <link href="https://cdn.datatables.net/rowgroup/1.1.2/css/rowGroup.dataTables.min.css" rel="stylesheet">
+         
 		<!-- Custom Theme Style -->
 		<link href="<?php echo base_url()?>assets/build/css/custom.min.css" rel="stylesheet">
 		<link href="<?php echo base_url()?>assets/build/css/mycustom.css" rel="stylesheet">
@@ -115,6 +117,12 @@
         <script src="<?php echo base_url()?>assets/build/js/custom.js"></script>
         <!-- <script src="<?php echo base_url()?>assets/build/js/charts.js"></script> -->
         <!-- <script src="<?php echo base_url()?>assets/build/js/table.js"></script> -->
+
+        <?php if (isset($javascriptLoadcdn)):?>
+            <?php foreach ($javascriptLoadcdn as $rowcdn):?>
+                <script src="<?php echo $rowcdn ?>"></script>
+            <?php endforeach; ?>
+        <?php endif; ?>
 
         <?php if (isset($javascriptLoad)):?>
             <?php foreach ($javascriptLoad as $row):?>

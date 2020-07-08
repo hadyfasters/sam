@@ -163,4 +163,4 @@ define('LEAD_APPROVE','lead/approval');
 define('LEAD_REMOVE','lead/remove');
 
 // Endpoint REPORT
-define('ACTIVITY_REPORT','report/activity');
+define('ACTIVITY_REPORT','report/lead_main');
